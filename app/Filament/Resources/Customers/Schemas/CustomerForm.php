@@ -15,6 +15,7 @@ class CustomerForm
                 TextInput::make('email')->email()->required(),
                 TextInput::make('phone'),
                 TextInput::make('address'),
+                TextInput::make('password')->password()->required(),
             ]);
     }
 }

@@ -45,6 +45,10 @@ class CustomerResource extends Resource
                     ->maxLength(20),
                 TextInput::make('address')
                     ->maxLength(500),   
+                TextInput::make('password')
+                    ->password()
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -60,6 +64,7 @@ class CustomerResource extends Resource
                     ->searchable(),
                 TextColumn::make('phone'),
                 TextColumn::make('address'),
+                
             ])
             ->filters([
                 //

@@ -34,6 +34,7 @@ class ProductResource extends Resource
     {
         return $schema
             ->components([
+                TextInput::make('id_category')->required(),
                 TextInput::make('name')->required(),
                 TextInput::make('description'),
                 TextInput::make('price')->required()->numeric(),
@@ -52,6 +53,7 @@ class ProductResource extends Resource
             ->recordTitleAttribute('Product')
             ->columns([
                 TextColumn::make('id')->label('NO'),
+                TextColumn::make('id_category'),
                 TextColumn::make('name'),
                 TextColumn::make('description'),
                 TextColumn::make('price'),
