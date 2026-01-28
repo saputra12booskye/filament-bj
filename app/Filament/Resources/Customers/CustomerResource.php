@@ -10,6 +10,7 @@ use App\Filament\Resources\Customers\Pages\EditCustomer;
 use App\Filament\Resources\Customers\Pages\ListCustomers;
 use App\Models\Customer;
 use BackedEnum;
+use Dom\Text;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -52,6 +53,7 @@ class CustomerResource extends Resource
         return $table
             ->recordTitleAttribute('Customer')
             ->columns([
+                TextColumn::make('id')->label('NO'),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('email')
