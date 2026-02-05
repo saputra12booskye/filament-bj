@@ -47,7 +47,9 @@ public function login(Request $request)
 
 
     if (Auth::guard('customer')->attempt($credentials)) {
+        
         $request->session()->regenerate();
+        session()->regenerate();
         return redirect()->route('customer.dashboard');
     }
 

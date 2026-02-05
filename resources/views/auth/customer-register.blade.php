@@ -4,17 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Jersey Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00ff88;
-            --primary-dark: #00cc6e;
-            --dark: #0a0e27;
-            --dark-light: #1a1f3a;
-            --gray: #8892a6;
+            --red: #ff3b30;
+            --red-dark: #d32f2f;
+            --yellow: #ffc107;
+            --yellow-dark: #ffa000;
             --white: #ffffff;
-            --field-green: #1e7a46;
-            --error: #ff4757;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-400: #bdbdbd;
+            --gray-600: #757575;
+            --gray-800: #424242;
+            --dark: #212121;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
         }
 
         * {
@@ -25,76 +32,14 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--dark);
+            background: #ffffff;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow-x: hidden;
-            padding: 40px 0;
-        }
-
-        /* Animated background with football field pattern */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, transparent 49%, rgba(0, 255, 136, 0.1) 49%, rgba(0, 255, 136, 0.1) 51%, transparent 51%),
-                linear-gradient(0deg, transparent 49%, rgba(0, 255, 136, 0.1) 49%, rgba(0, 255, 136, 0.1) 51%, transparent 51%);
-            background-size: 100px 100px;
-            opacity: 0.3;
-            animation: fieldMove 20s linear infinite;
-        }
-
-        @keyframes fieldMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(100px, 100px); }
-        }
-
-        /* Gradient orbs */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--primary);
-            top: -200px;
-            right: -200px;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 350px;
-            height: 350px;
-            background: #0066ff;
-            bottom: -150px;
-            left: -150px;
-            animation-delay: 2s;
-        }
-
-        .orb-3 {
-            width: 250px;
-            height: 250px;
-            background: #ff6b6b;
-            top: 50%;
-            left: 50%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 50px) scale(1.1); }
+            padding: 40px 20px;
         }
 
         .container {
@@ -102,7 +47,6 @@
             z-index: 1;
             width: 100%;
             max-width: 480px;
-            padding: 20px;
             animation: slideUp 0.6s ease-out;
         }
 
@@ -118,14 +62,22 @@
         }
 
         .register-card {
-            background: rgba(26, 31, 58, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+            background: var(--white);
+            border-radius: 28px;
             padding: 48px 40px;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Card top accent */
+        .card-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--red) 0%, var(--yellow) 100%);
         }
 
         .logo-section {
@@ -136,39 +88,60 @@
         .logo-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
             border-radius: 20px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
             box-shadow: 
-                0 10px 30px rgba(0, 255, 136, 0.3),
-                0 0 0 4px rgba(0, 255, 136, 0.1);
+                0 8px 24px rgba(255, 59, 48, 0.25),
+                0 0 0 8px rgba(255, 59, 48, 0.1);
             animation: logoFloat 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--yellow), var(--yellow-dark));
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .logo-icon:hover::after {
+            opacity: 1;
         }
 
         @keyframes logoFloat {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
 
         .logo-icon svg {
             width: 40px;
             height: 40px;
-            fill: var(--dark);
+            fill: var(--white);
+            position: relative;
+            z-index: 1;
         }
 
         h2 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 36px;
-            color: var(--white);
+            background: linear-gradient(135deg, var(--red), var(--yellow-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             letter-spacing: 2px;
             margin-bottom: 8px;
         }
 
         .subtitle {
-            color: var(--gray);
+            color: var(--gray-600);
             font-size: 14px;
             font-weight: 500;
         }
@@ -178,7 +151,7 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             position: relative;
             animation: fadeInUp 0.5s ease-out backwards;
         }
@@ -201,13 +174,12 @@
 
         label {
             display: block;
-            color: var(--white);
-            font-size: 14px;
+            color: var(--dark);
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-size: 12px;
         }
 
         .input-wrapper {
@@ -221,18 +193,18 @@
             transform: translateY(-50%);
             width: 20px;
             height: 20px;
-            opacity: 0.5;
-            transition: opacity 0.3s;
+            color: var(--gray-400);
+            transition: all 0.3s;
             z-index: 1;
         }
 
         input {
             width: 100%;
             padding: 16px 16px 16px 48px;
-            background: rgba(10, 14, 39, 0.5);
-            border: 1.5px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: var(--white);
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 14px;
+            color: var(--dark);
             font-size: 15px;
             font-family: 'Inter', sans-serif;
             transition: all 0.3s;
@@ -240,26 +212,26 @@
         }
 
         input::placeholder {
-            color: var(--gray);
+            color: var(--gray-400);
         }
 
         input:focus {
-            border-color: var(--primary);
-            background: rgba(10, 14, 39, 0.8);
-            box-shadow: 0 0 0 4px rgba(0, 255, 136, 0.1);
+            border-color: var(--red);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(255, 59, 48, 0.1);
         }
 
         input:focus ~ .input-icon {
-            opacity: 1;
-            color: var(--primary);
+            color: var(--red);
+            transform: translateY(-50%) scale(1.1);
         }
 
         /* Password strength indicator */
         .password-strength {
             height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            margin-top: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            margin-top: 10px;
             overflow: hidden;
             position: relative;
         }
@@ -267,21 +239,31 @@
         .password-strength-bar {
             height: 100%;
             width: 0%;
-            background: var(--error);
+            background: var(--red);
             transition: all 0.3s;
-            border-radius: 2px;
+            border-radius: 4px;
         }
 
-        .password-strength-bar.weak { width: 33%; background: var(--error); }
-        .password-strength-bar.medium { width: 66%; background: #ffa502; }
-        .password-strength-bar.strong { width: 100%; background: var(--primary); }
+        .password-strength-bar.weak { 
+            width: 33%; 
+            background: linear-gradient(90deg, var(--red), var(--red-dark));
+        }
+        .password-strength-bar.medium { 
+            width: 66%; 
+            background: linear-gradient(90deg, var(--yellow-dark), var(--yellow));
+        }
+        .password-strength-bar.strong { 
+            width: 100%; 
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+        }
 
         .password-match {
             display: flex;
             align-items: center;
             gap: 6px;
-            margin-top: 8px;
+            margin-top: 10px;
             font-size: 13px;
+            font-weight: 500;
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -291,11 +273,11 @@
         }
 
         .password-match.match {
-            color: var(--primary);
+            color: #4caf50;
         }
 
         .password-match.no-match {
-            color: var(--error);
+            color: var(--red);
         }
 
         .password-match svg {
@@ -306,18 +288,20 @@
         button[type="submit"] {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
             border: none;
-            border-radius: 12px;
-            color: var(--dark);
+            border-radius: 14px;
+            color: var(--white);
             font-size: 16px;
             font-weight: 700;
             font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+            box-shadow: 
+                0 8px 24px rgba(255, 59, 48, 0.3),
+                0 4px 12px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
             margin-top: 32px;
@@ -332,12 +316,15 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            transition: left 0.6s;
         }
 
         button[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 
+                0 12px 32px rgba(255, 59, 48, 0.4),
+                0 6px 16px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, var(--red-dark), var(--red));
         }
 
         button[type="submit"]:hover::before {
@@ -345,7 +332,7 @@
         }
 
         button[type="submit"]:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
         }
 
         button[type="submit"]:disabled {
@@ -354,12 +341,71 @@
             transform: none !important;
         }
 
+        /* Features banner */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 32px;
+            animation: fadeInUp 0.5s ease-out 0.6s backwards;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 16px 10px;
+            background: linear-gradient(135deg, var(--gray-50), var(--white));
+            border-radius: 14px;
+            border: 2px solid var(--gray-100);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--yellow));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .feature-item:hover {
+            border-color: var(--red);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-item svg {
+            width: 28px;
+            height: 28px;
+            margin-bottom: 8px;
+            color: var(--red);
+        }
+
+        .feature-item span {
+            display: block;
+            font-size: 11px;
+            color: var(--gray-600);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .divider {
             display: flex;
             align-items: center;
-            margin: 32px 0;
-            color: var(--gray);
+            margin: 32px 0 24px;
+            color: var(--gray-600);
             font-size: 13px;
+            font-weight: 500;
         }
 
         .divider::before,
@@ -367,7 +413,7 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--gray-200);
         }
 
         .divider span {
@@ -379,24 +425,30 @@
         }
 
         .login-link a {
-            color: var(--primary);
+            color: var(--red);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(255, 59, 48, 0.05), rgba(255, 193, 7, 0.05));
+            border: 2px solid transparent;
         }
 
         .login-link a:hover {
-            color: var(--white);
-            gap: 10px;
+            gap: 12px;
+            border-color: var(--red);
+            background: linear-gradient(135deg, rgba(255, 59, 48, 0.1), rgba(255, 193, 7, 0.1));
         }
 
         .login-link a::after {
             content: '→';
             transition: transform 0.3s;
+            font-size: 18px;
         }
 
         .login-link a:hover::after {
@@ -406,74 +458,42 @@
         /* Jersey pattern decoration */
         .jersey-pattern {
             position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 150px;
-            height: 150px;
-            opacity: 0.05;
+            bottom: 20px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+            opacity: 0.03;
             pointer-events: none;
-        }
-
-        /* Features banner */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 32px;
-            animation: fadeInUp 0.5s ease-out 0.6s backwards;
-        }
-
-        .feature-item {
-            text-align: center;
-            padding: 16px 8px;
-            background: rgba(0, 255, 136, 0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 255, 136, 0.1);
-            transition: all 0.3s;
-        }
-
-        .feature-item:hover {
-            background: rgba(0, 255, 136, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .feature-item svg {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 8px;
-            color: var(--primary);
-        }
-
-        .feature-item span {
-            display: block;
-            font-size: 11px;
-            color: var(--gray);
-            font-weight: 500;
+            color: var(--red);
         }
 
         /* Responsive */
         @media (max-width: 480px) {
+            body {
+                padding: 20px;
+            }
+
             .register-card {
                 padding: 36px 28px;
             }
 
             h2 {
-                font-size: 28px;
+                font-size: 32px;
             }
 
             .logo-icon {
-                width: 60px;
-                height: 60px;
+                width: 70px;
+                height: 70px;
             }
 
             .logo-icon svg {
-                width: 30px;
-                height: 30px;
+                width: 35px;
+                height: 35px;
             }
 
             .features {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 10px;
             }
 
             .feature-item {
@@ -481,22 +501,27 @@
                 align-items: center;
                 gap: 12px;
                 text-align: left;
-                padding: 12px;
+                padding: 14px 16px;
             }
 
             .feature-item svg {
                 margin-bottom: 0;
+                width: 24px;
+                height: 24px;
+            }
+
+            .login-link a {
+                font-size: 13px;
+                padding: 10px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-
     <div class="container">
         <div class="register-card">
+            <div class="card-accent"></div>
+
             <!-- Jersey pattern decoration -->
             <svg class="jersey-pattern" viewBox="0 0 100 100" fill="currentColor">
                 <path d="M50 10 L40 30 L20 30 L20 70 L40 70 L40 90 L60 90 L60 70 L80 70 L80 30 L60 30 Z"/>
@@ -600,19 +625,19 @@
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
                     </svg>
-                    <span>Transaksi Aman</span>
+                    <span>Aman</span>
                 </div>
                 <div class="feature-item">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
-                    <span>Jersey Original</span>
+                    <span>Original</span>
                 </div>
                 <div class="feature-item">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
                     </svg>
-                    <span>Gratis Ongkir</span>
+                    <span>Gratis</span>
                 </div>
             </div>
 

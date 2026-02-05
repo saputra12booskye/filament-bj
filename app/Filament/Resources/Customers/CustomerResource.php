@@ -8,6 +8,7 @@ use App\Filament\Resources\Customers\Tables\CustomersTable;
 use App\Filament\Resources\Customers\Pages\CreateCustomer;
 use App\Filament\Resources\Customers\Pages\EditCustomer;
 use App\Filament\Resources\Customers\Pages\ListCustomers;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
 use BackedEnum;
 use Dom\Text;
@@ -47,7 +48,9 @@ class CustomerResource extends Resource
                     ->maxLength(500),   
                 TextInput::make('password')
                     ->password()
-                    ->required()
+                    ->required(fn (string $operation) => $operation === 'create')
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
                     ->maxLength(255),
             ]);
     }
